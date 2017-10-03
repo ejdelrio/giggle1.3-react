@@ -1,0 +1,41 @@
+@import '../../style/lib/vars.scss';
+
+.auth-form {
+  float: left;
+  width: 20%;
+  height: 50vh;
+  margin: 25vh 40%;
+  transition: 350ms all;
+
+
+  input {
+    float: left;
+    width: 85%;
+    height: 5vh;
+    background: rgba(999, 999, 999, 0.4);
+    border: none;
+    padding: $inp-padding;
+    border-radius: 5px;
+    font-size: 2vh;
+    font-family: helvetica;
+    font-weight: bold;
+    color: $black;
+    margin: $margin;
+  }
+
+  &>button {
+    float: left;
+    margin: 5% 42.5%;
+    width: 15%;
+    height: 10%;
+    font-size: 3vh;
+    background: rgba(999, 999, 999, 0.4);
+    color: $grey;
+    border-radius: 20px;
+    border: none;
+  }
+  &>input:hover, &>button:hover {
+    background: rgba(999, 999, 999, 0.7);
+    transition: 350ms all;
+  }
+}

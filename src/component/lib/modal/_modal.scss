@@ -1,0 +1,14 @@
+.modal {
+  float: left;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+
+  button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: white;
+    font-size: 3vh;
+  }
+}

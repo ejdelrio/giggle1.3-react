@@ -1,0 +1,36 @@
+@import '../../style/lib/vars.scss';
+
+
+#auth-page {
+  float: left;
+  width: 100%;
+  height: 100vh;
+
+  &>div{
+    position: absolute;
+    float: left;
+    width: 100%;
+    height: 100vh;
+    background: url('http://cdn.osxdaily.com/wp-content/uploads/2017/06/macos-high-sierra-default-wallpaper-fall-mountain-scene-1.jpg');
+    filter: blur(3.5px);
+    z-index: -1;
+  }
+
+  &>p {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    font-size: 3vh;
+    margin: $margin;
+    a{
+      text-decoration: none;
+      color: rgba(999, 999, 999, 0.4);
+      transition: 350ms all;
+
+      &:hover {
+        color: rgba(999, 999, 999, 0.8);
+      }
+    }
+
+  }
+}

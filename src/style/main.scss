@@ -1,1 +1,6 @@
+@import './base/reset.scss';
+@import './lib/vars.scss';
 
+::-webkit-input-placeholder {
+  color: $grey;
+}
