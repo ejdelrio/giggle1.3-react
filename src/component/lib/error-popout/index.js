@@ -6,7 +6,6 @@ class ErrorPopout extends React.Component {
   render() {
     let className = this.props.hidden ?
     'error': 'hidden-error';
-    console.log('CLASS', className)
     return(
       <div className={className}>
         <div>

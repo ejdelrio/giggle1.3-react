@@ -23,7 +23,7 @@ class AuthPage extends React.Component {
 
     return(
       <section id='auth-page'>
-        <div>
+        <div className='blurred-image'>
         </div>
         <AuthForm
           auth={auth}

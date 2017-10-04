@@ -1,0 +1,147 @@
+@import '../../../style/lib/vars.scss';
+
+
+.profile-form {
+  width: 50%;
+  height: 90vh;
+  background: rgba(0, 0, 0, 0.5);
+  float: left;
+  margin: 2.5vh 25%;
+  border-radius: 5px;
+  padding: 2vh 2.5%;
+
+  &>ul {
+    width: 95%;
+    height: 10vh;
+    float: left;
+    margin: 1vh 2.5%;
+    overflow: scroll;
+
+    li {
+      display: inline-block;
+      max-width: 30vw;
+      font-size: 2vh;
+      font-family: helvetica;
+      margin-right: 2%;
+      margin-bottom: 1vh;
+      border: 1px solid white;
+      border-radius: 3px;
+      padding: 0.5vh 2%;
+
+      span {
+        font-weight: bold;
+        margin-left: 1vw;
+        cursor: pointer;
+      }
+    }
+
+  }
+
+
+
+  input, textarea, select{
+    border: none;
+    border-radius: 5px;
+    background: rgba(999, 999, 999, 0.4);
+    width: 85%;
+    height: 5vh;
+    padding: $inp-padding;
+    font-size: 2vh;
+    margin: $margin;
+    color: $black;
+    font-weight: bold;
+    transition: 350ms all;
+
+    &:focus {
+      background: $wht-trns-focus;
+    }
+  }
+
+  input[name='textInput']:focus {
+    background: white;
+  }
+
+  input[name='textInput'] {
+    margin: 0 2.5%;
+  }
+
+  select {
+    width: 25%;
+    height: 5vh;
+    padding: 1vh 15%;
+  }
+
+  textarea {
+    height: 10vh;
+  }
+
+  &>button {
+    float: right;
+    width: 25%;
+    height: 3vh;
+    padding: 0.25vh;
+    text-align: center;
+    height: 5vh;
+    border: none;
+    border-radius: $radius;
+    font-size: 2.5vh;
+    color: $black;
+    background: $white-trans;
+    margin: $margin;
+    font-weight: bold;
+    &:hover {
+      background: $wht-trns-focus;
+    }
+  }
+
+  #genre-auto-comp {
+    float: left;
+    width: 100%;
+    height: 5vh;
+    padding: 2vh 0;
+    position: relative;
+    margin-bottom: 2vh;
+
+    ul {
+      position: absolute;
+      border-radius: 5px;
+      float: left;
+      width: 95%;
+      height: 3vh;
+      background: white;
+      margin-left: 2.5%;
+      min-height: 0vh;
+      max-height: 20vh;
+      height: auto;
+      overflow-y: scroll;
+
+
+      li {
+        width: 90%;
+        padding: $inp-padding;
+        height: 3vh;
+        transition: 350ms all;
+        cursor: pointer;
+        p{
+          float: left;
+          width: 100%;
+          font-family: helvetica;
+        }
+        p>span {
+          float: right;
+          color: white;
+          font-family: helvetica;
+        }
+      }
+
+      li:hover {
+        background: $black;
+        p {
+          color: white;
+
+        }
+      }
+
+    }
+  }
+}
