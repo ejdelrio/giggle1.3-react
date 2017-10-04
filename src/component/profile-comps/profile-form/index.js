@@ -7,8 +7,10 @@ import * as googleTools from '../../../lib/googleTools.js';
 import AutoCompleteTree from '../../../lib/triadAutoComplete.js';
 import musicLibrary from '../../../lib/musicGenreLibrary.js';
 import * as util from '../../../lib/util.js';
+
 import AutoCompInput from '../../lib/auto-comp-input'
 import ErrorPopout from '../../lib/error-popout';
+import LoadingScreen from '../../lib/loading-screen';
 
 let listElement = val => {
   return(
@@ -31,6 +33,7 @@ class ProfileForm extends React.Component {
       bio: '',
       errorBoolean: false,
       errorMessage: '',
+      loading: false,
       ...this.props.profile
     }
 
@@ -100,11 +103,13 @@ class ProfileForm extends React.Component {
   }
 
   useLocation() {
+    this.setState({loading: true});
     googleTools.geoCall()
     .then(coords => {
       return googleTools.getAddress(coords);
     })
     .then(loc => {
+      this.setState({loading: false});
       let newState = googleTools.formatAddress(loc.results, loc.coords);
       this.setState(newState)
     });
@@ -126,6 +131,11 @@ class ProfileForm extends React.Component {
           hidden={this.state.errorBoolean}
           close={this.errorToggle}
         />
+        {util.renderIf(this.state.loading,
+          <LoadingScreen
+            text='Updating Location...'
+          />
+        )}
 
         <select
           name='type'

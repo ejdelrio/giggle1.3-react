@@ -3,6 +3,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 import ProfileForm from '../profile-form';
+import ProfilePhotoUpload from '../profile-photo-upload';
 
 class ProfilePage extends React.Component {
   constructor(props) {
