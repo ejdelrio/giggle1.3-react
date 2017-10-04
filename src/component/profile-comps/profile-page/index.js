@@ -13,7 +13,9 @@ class ProfilePage extends React.Component {
     return(
       <section id='profile-page'>
         <div className='blurred-image'></div>
-        <ProfileForm/>
+        <ProfileForm
+          redirect={() => this.props.history.replace('/')}
+        />
       </section>
     )
   }

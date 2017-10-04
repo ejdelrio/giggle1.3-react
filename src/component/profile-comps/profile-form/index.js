@@ -1,8 +1,9 @@
 import './_profile-form.scss';
 import React from 'react';
 import {connect} from 'react-redux';
-import profileActions from '../../../action/profile-action.js';
 
+import * as profileActions from '../../../action/profile-action.js';
+import * as googleTools from '../../../lib/googleTools.js';
 import AutoCompleteTree from '../../../lib/triadAutoComplete.js';
 import musicLibrary from '../../../lib/musicGenreLibrary.js';
 import * as util from '../../../lib/util.js';
@@ -25,11 +26,12 @@ class ProfileForm extends React.Component {
       address: '',
       state: '',
       city: '',
-      location: [],
+      coords: [],
       genres: [],
       bio: '',
       errorBoolean: false,
-      errorMessage: ''
+      errorMessage: '',
+      ...this.props.profile
     }
 
     this.onChange = this.onChange.bind(this);
@@ -38,6 +40,8 @@ class ProfileForm extends React.Component {
     this.removeGenre = this.removeGenre.bind(this);
     this.errorCheck = this.errorCheck.bind(this);
     this.errorToggle = this.errorToggle.bind(this);
+    this.useLocation = this.useLocation.bind(this);
+    this.useAddress = this.useAddress.bind(this);
   }
 
   errorToggle() {
@@ -47,11 +51,15 @@ class ProfileForm extends React.Component {
   }
 
   errorCheck(err) {
+    let status = err ? err.status : '';
     let {state} = this;
     let required = ['bio', 'state', 'city', 'address'];
+
     for (let i = 0; i < required.length; i++) {
       if(state[required[i]] === '') return `${required[i]} is required!!`;
     }
+    if(status === 401) return 'Looks like you don\'t have an account. Please create one first';
+    if(status === 401) return 'Something went wrong! Please try your request again.';
   }
 
 
@@ -72,11 +80,41 @@ class ProfileForm extends React.Component {
     e.preventDefault();
     let errorMessage = this.errorCheck();
     if(errorMessage) return this.setState({errorMessage, errorBoolean: true});
+
+    this.useAddress()
+    .then(coords => {
+      let query = this.state;
+      query.coords = coords;
+      return this.props.onComplete(query);
+    })
+    .then(() => this.props.redirect())
+    .catch(error => {
+      let errorMessage = this.errorCheck(error);
+      this.setState({errorMessage, errorBoolean: true});
+    })
   }
 
   onChange(e) {
     let {name, value} = e.target;
     this.setState({[name]: value})
+  }
+
+  useLocation() {
+    googleTools.geoCall()
+    .then(coords => {
+      return googleTools.getAddress(coords);
+    })
+    .then(loc => {
+      let newState = googleTools.formatAddress(loc.results, loc.coords);
+      this.setState(newState)
+    });
+  }
+
+  useAddress() {
+    return new Promise(resolve => {
+      if(this.state.coords.length > 1) return resolve(this.state.coords);
+      resolve(googleTools.getCoords(this.state));
+    })
   }
 
 
@@ -120,7 +158,7 @@ class ProfileForm extends React.Component {
         <input
           name='address'
           type='text'
-          placeholder='Enter Street Adress'
+          placeholder='Enter Street Address'
           onChange={this.onChange}
           value={this.state.address}
         />
@@ -146,18 +184,10 @@ class ProfileForm extends React.Component {
           value={this.state.bio}
         />
         <button type='submit'>Submit</button>
+        <button type='button' onClick={this.useLocation}>Use My Location</button>
       </form>
     )
   }
 }
 
-let mapStateToProps = state => ({
-  token: state.token,
-  profile: state.profile
-})
-
-let mapDispatchToProps = dispatch => ({
-  postProfile: profile => dispatch(profileActions.postProfile(profile)),
-})
-
-export default connect(undefined, mapDispatchToProps)(ProfileForm);
+export default ProfileForm;

@@ -25,6 +25,7 @@
       margin-right: 2%;
       margin-bottom: 1vh;
       border: 1px solid white;
+      background: $white-trans;
       border-radius: 3px;
       padding: 0.5vh 2%;
 
@@ -89,9 +90,15 @@
     background: $white-trans;
     margin: $margin;
     font-weight: bold;
+    transition: 350ms all;
     &:hover {
       background: $wht-trns-focus;
     }
+  }
+
+  &>button:last-child {
+    float: left;
+    width: 40%;
   }
 
   #genre-auto-comp {
@@ -111,10 +118,9 @@
       background: white;
       margin-left: 2.5%;
       min-height: 0vh;
-      max-height: 20vh;
+      max-height: 30vh;
       height: auto;
       overflow-y: scroll;
-
 
       li {
         width: 90%;
@@ -141,7 +147,6 @@
 
         }
       }
-
     }
   }
 }

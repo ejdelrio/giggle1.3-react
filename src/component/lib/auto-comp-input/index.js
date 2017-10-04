@@ -37,6 +37,7 @@ class AutoCompInput extends React.Component {
           placeholder={this.props.placeholder}
           onChange={this.onChange}
           value={this.state.textInput}
+          autoComplete='off'
         />
         <ul>
           {this.state.queryResults.map((item, ind) => {
